@@ -1,66 +1,78 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from '@inertiajs/react';
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import { Link } from "@inertiajs/react";
+import * as Icon from 'react-bootstrap-icons';
+import "../../../css/material-dashboard.min.css";
 
-
-const endPoint='http://localhost:8000/api';
+const endPoint = "http://localhost:8000/api";
 
 export default function ShowFactura() {
+    const [product, setProducts] = useState([]);
+    useEffect(() => {
+        getAllProductos();
+    }, []);
 
-    const [product,setProducts]= useState([]);
-    useEffect( () => {
-        getAllProductos()
-    }, [])
+    const getAllProductos = async () => {
+        const response = await axios.get(`${endPoint}/productos`);
 
-    const getAllProductos=async () =>{
-       const response= await axios.get(`${endPoint}/productos`)
+        setProducts(response.data);
+    };
 
-       setProducts(response.data)
-      
-    }
-
-    const deleteProducto= async (id) =>{
-       await axios.delete(`${endPoint}/producto/${id}`)
-       getAllFacturas()
-        
-    }
+    const deleteProducto = async (id) => {
+        await axios.delete(`${endPoint}/producto/${id}`);
+        getAllFacturas();
+    };
 
     return (
-        <div className="table-responsive-sm pt-5">
-            <div className="d-grid gap-2 justify-content-end">
-                <Link to ="/create" className="btn btn-success btn-lg mt-2 mb-2 text-white">Crear</Link>
+        <div className="table-responsive">
+            <div className="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+                <Link
+                    to="/create"
+                    // className="btn btn-success btn-lg mt-2 mb-2 text-white"
+                ><button className="btn btn-success"> Crear</button>
+                   
+                </Link>
             </div>
-            <table className="table">
-                <thead className="table-dark">
-                    <tr >
-                        <th scope="col">NOMBRE</th>
-                        <th scope="col">PRECIO</th>
-                        <th scope="col">LOTE</th>
-                        <th scope="col">VENCIMIENTO</th>
-                        <th scope="col">ESTADO</th>
-                        <th scope="col">ACCION</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {product.map((producto)=> (
-                        <tr key={producto.id_productos}>
-                            <td>{producto.nombre}</td>
-                            <td>{producto.precio}</td>
-                            <td>{producto.lote}</td>
-                            <td>{producto.vencimiento}</td>
-                            <td>{producto.estado}</td>
-                            <td>
-                                <Link to={`/edit/${producto.id}`} className="btn btn-warning">Editar</Link>
-                                <button onClick={()=>deleteProducto(producto.id)} className="btn btn-danger">Eliminar</button>
-                            </td>
-
+            <div className="dataTable-container">
+                <table className="table text-center">
+                    <thead className="table-dark text-center">
+                        <tr>
+                            <th>NOMBRE</th>
+                            <th>PRECIO</th>
+                            <th>LOTE</th>
+                            <th>VENCIMIENTO</th>
+                            <th>ESTADO</th>
+                            <th>ACCION</th>
                         </tr>
-                    )
-                    )}
-               </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {product.map((producto) => (
+                            <tr key={producto.id_productos}>
+                                <td>{producto.nombre}</td>
+                                <td>{producto.precio}</td>
+                                <td>{producto.lote}</td>
+                                <td>{producto.vencimiento}</td>
+                                <td>{producto.estado}</td>
+                                <td className="d-flex justify-content-center">
+                                    <Link
+                                    ><Icon.Eye/>
+                                    </Link>
+                                    <Link
+                                        to={`/edit/${producto.id}`}
+                                    ><Icon.PencilSquare/>
+                                    </Link>
+                                    <Link onClick={() =>
+                                        deleteProducto(producto.id)
+                                    }
+                                    ><Icon.Trash />
+                                    </Link>
+                                        
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }
