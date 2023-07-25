@@ -12,6 +12,24 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <!-- Scripts -->
+         <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+        <!-- Icons -->
+        <link href="{{ asset('css/nucleo-icons.css')}}" rel="stylesheet" />
+        <link href="{{ asset('css/nucleo-svg.css')}}" rel="stylesheet" />
+
+        <!-- Font Awesome Icons -->
+        <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+        <!-- CSS Files -->
+        <link id="pagestyle" href="{{ asset('css/material-dashboard.css')}}" rel="stylesheet" />    
+        <!-- Core -->
+        <script src="{{ asset('js/core/popper.min.js')}}"></script>
+        <script src="{{ asset('js/core/bootstrap.min.js')}}"></script>
+
+        <!-- Theme JS -->
+        <script src=" {{ asset('js/material-dashboard.min.js')}}"></script> 
         @routes
         @viteReactRefresh
         @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])

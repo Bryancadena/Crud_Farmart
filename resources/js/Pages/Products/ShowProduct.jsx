@@ -1,6 +1,8 @@
 import React,{useEffect,useState} from "react";
 import axios from "axios";
 import { Link } from '@inertiajs/react';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 
 const endPoint='http://localhost:8000/api';
@@ -26,7 +28,7 @@ export default function ShowFactura() {
     }
 
     return (
-        <div>
+        <div className="table-responsive-sm pt-5">
             <div className="d-grid gap-2 justify-content-end">
                 <Link to ="/create" className="btn btn-success btn-lg mt-2 mb-2 text-white">Crear</Link>
             </div>
