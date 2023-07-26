@@ -11,41 +11,56 @@ const endPoint = "http://localhost:8000/api";
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: 'Identificacion',
+    dataIndex: 'identificacion',
+    key: 'identificacion',
     render: (text) => <a>{text}</a>,
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: 'Nombres',
+    dataIndex: 'nombres',
+    key: 'nombres',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: 'E.P.S',
+    dataIndex: 'eps_cliente',
+    key: 'eps_cliente',
   },
   {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    title: 'Tipo Facturacion',
+    dataIndex: 'descripcion',
+    key: 'descripcion',
   },
+  {
+    title: 'Observación',
+    dataIndex: 'observacion',
+    key: 'observacion',
+  },
+  {
+    title: 'Elaboró',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  // {
+  //   title: 'Tags',
+  //   key: 'tags',
+  //   dataIndex: 'tags',
+  //   render: (_, { tags }) => (
+  //     <>
+  //       {tags.map((tag) => {
+  //         let color = tag.length > 5 ? 'geekblue' : 'green';
+  //         if (tag === 'loser') {
+  //           color = 'volcano';
+  //         }
+  //         return (
+  //           <Tag color={color} key={tag}>
+  //             {tag.toUpperCase()}
+  //           </Tag>
+  //         );
+  //       })}
+  //     </>
+  //   ),
+  // },
   {
     title: 'Action',
     key: 'action',
@@ -94,45 +109,55 @@ const columns = [
 //   },
 // ];
 
-export default function ShowFacturacion({ auth }) {
+export default function ShowFormula({auth}) {
 
-    const [factura, setFacturas] = useState([]);
+    const [formula, setFormula] = useState([]);
     useEffect(() => {
-        getAllFacturas();
+        getAllFormula();
     }, []);
 
-    const getAllFacturas = async () => {
+    const getAllFormula = async () => {
         const response = await axios.get(`${endPoint}/formulas`);
 
-        setFacturas(response.data);
+        setFormula(response.data);
     };
 
-    const deleteFactura = async (id) => {
+    const deleteFormula = async (id) => {
         await axios.delete(`${endPoint}/formula/${id}`);
-        getAllFacturas();
+        getAllFormula();
     };
-console.log(factura);
-    const data = factura.map((item,index) => ({
+
+    
+    const data = formula.map((item,index) => ({
       ...item,
-    key:index.id,
-    name:index.fk_cliente,
-    age: index.fk_tipo_facturacion,
-    address:index.observacion,
-    tags:index.id_usuario, // Supongamos que la propiedad "id" es única para cada elemento
+    item:index.id,
+    item:index.fk_cliente,
+    item:index.fk_tipo_facturacion,
+    item:index.observacion,
+    item:index.id_usuario
     }));
+
+    const Style = {
+      width: "fit-content",
+      placeSelf:"flex-end",
+      backgroundColor: "#1677ff",
+  };
 
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={<h6 className="font-semibold text-xl text-gray-800 leading-tight">Facturacion</h6>}
         >
-            <Head title="Dashboard" />
+            <Head title="Facturación" />
 
             <div className="row">
                 <div className="col-12">
                     <div className="card">
+                    <Button type="primary" icon={<Icon.PlusOutlined />} style={Style}>
+                      Nueva
+                    </Button>
                    <div className='card-body px-0 pb-2'>
-                        <Table columns={columns} dataSource={data} />
+                        <Table columns={columns} dataSource={data} rowKey="id"/>
                         </div>
                     </div>
                 </div>
@@ -140,6 +165,3 @@ console.log(factura);
         </AuthenticatedLayout>
     );
 }
-
-
-// const App = () => <Table columns={columns} dataSource={data} />;

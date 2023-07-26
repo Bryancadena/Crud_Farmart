@@ -24,7 +24,7 @@ export default function Sidebar({ user }) {
                 ></i>
                 <a className="navbar-brand m-0" target="_blank">
                     <span className="ms-1 font-weight-bold text-white">
-                        FARMART - PANEL DE ADMIN{" "}
+                        FARMART - PANEL DE ADMIN
                     </span>
                 </a>
             </div>
@@ -34,8 +34,8 @@ export default function Sidebar({ user }) {
                 <ul className="navbar-nav">
                     <li className="nav-item mb-2 mt-0">
                         <a
-                            data-bs-toggle="collapse"
-                            href="#ProfileNav"
+                            // data-bs-toggle="collapse"
+                            href="#"
                             className="nav-link text-white collapsed"
                             aria-controls="ProfileNav"
                             role="button"
@@ -45,12 +45,12 @@ export default function Sidebar({ user }) {
                                 className="nav-link-text ms-2 ps-1"
                                 style={Style}
                             >
-                                {user.name}
+                                {'USUARIO : '+(user.name)}
                             </span>
                         </a>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link text-white " href={route('logout')}>
+                        <Link className="nav-link text-white " href={route('Facturacion')}>
                             <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <Icon.CardList/>
                             </div>

@@ -12,7 +12,21 @@ class FormulaController extends Controller
     
     public function index()
     {
-        return formula::all();
+        $formulaConDetalle = formula::select('formulas.id',
+                                            'clientes.identificacion',
+                                            'clientes.nombres',
+                                            'clientes.apellidos',
+                                            'clientes.eps_cliente',
+                                            'tf.descripcion',
+                                            'formulas.observacion',
+                                            'users.name'
+                                            )
+                                            ->join('clientes','clientes.id_clientes','formulas.fk_cliente')
+                                            ->join('tipo_facturacions as tf','tf.id','formulas.fk_tipo_facturacion')
+                                            ->join('users','users.id','formulas.id_usuario')
+                                            ->get();
+                                            
+                return $formulaConDetalle;
     }
 
 

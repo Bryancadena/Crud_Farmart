@@ -29,7 +29,7 @@ Route::get('/', function () {
 Route::redirect('/', 'login'); // Redireccionar directamente desde '/' a '/login'
 Route::get('login', function () {
     return Inertia::render('Login');
-})->name('login'); // Dar un nombre a la ruta 'login'
+})->name('login'); 
 
 
 
