@@ -21,9 +21,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Route::controller(FormulaController::class)->group(function () {
+//     Route::get('/formulas', 'index');
+//     Route::post('/fromulas', 'store');
+//     Route::get('/formula/{id}', 'show');
+//     Route::put('/formula/{id}','update') ;
+//     Route::delete('/formula/{id}','destroy') ;
+
+// });
+
+
 Route::controller(FormulaController::class)->group(function () {
     Route::get('/formulas', 'index');
-    Route::post('/fromulas', 'store');
+    Route::post('/formulas', 'store');
     Route::get('/formula/{id}', 'show');
     Route::put('/formula/{id}','update') ;
     Route::delete('/formula/{id}','destroy') ;

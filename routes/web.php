@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 Route::redirect('/', 'login'); // Redireccionar directamente desde '/' a '/login'
 Route::get('login', function () {
-    return Inertia::render('Login'); 
+    return Inertia::render('Login');
 })->name('login'); // Dar un nombre a la ruta 'login'
 
 
@@ -37,6 +37,12 @@ Route::get('login', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/facturacion', function () {
+    return Inertia::render('Formula/ShowFormula');
+})->middleware(['auth', 'verified'])->name('Facturacion');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

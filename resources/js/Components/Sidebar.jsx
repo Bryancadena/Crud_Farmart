@@ -1,6 +1,7 @@
 import React from "react";
 import * as bootstrap from "bootstrap";
 import { Link } from "@inertiajs/react";
+import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import * as Icon from "react-bootstrap-icons";
 import "../../css/material-dashboard.min.css";
 
@@ -49,14 +50,14 @@ export default function Sidebar({ user }) {
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link text-white " href="#">
+                        <Link className="nav-link text-white " href={route('logout')}>
                             <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <Icon.CardList/>
                             </div>
                             <span className="nav-link-text ms-1">
                                 Facturación
                             </span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link text-white " href="#">
@@ -90,12 +91,12 @@ export default function Sidebar({ user }) {
                         </h6>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link text-white " href="#">
-                            <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <Link  to={route('logout')}><Icon.BoxArrowInRight/></Link>
+                        <ResponsiveNavLink method="post" href={route('logout')} as="button">
+                        <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                           <Icon.BoxArrowInRight/>
                             </div>
                             <span className="nav-link-text ms-1">Sign In</span>
-                        </a>
+                        </ResponsiveNavLink>
                     </li>
                 </ul>
             </div>

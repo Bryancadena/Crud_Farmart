@@ -28,6 +28,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        
         $table->dropForeign(['fk_id_formula']);
         $table->dropColumn('fk_id_formula');
         $table->dropForeign(['fk_id_producto']);

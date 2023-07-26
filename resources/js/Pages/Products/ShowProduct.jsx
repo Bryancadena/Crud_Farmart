@@ -6,7 +6,7 @@ import "../../../css/material-dashboard.min.css";
 
 const endPoint = "http://localhost:8000/api";
 
-export default function ShowFactura() {
+export default function ShowProducto() {
     const [product, setProducts] = useState([]);
     useEffect(() => {
         getAllProductos();

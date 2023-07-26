@@ -16,11 +16,11 @@ class ProductoSeeder extends Seeder
     {
         DB::table('productos')->insert([
            
-            'nombre'=> Str::random(10),			
-            'precio'=> rand(100, 100000),			
-            'lote'=>	Str::random(10),			
-            'vencimiento'=>now()->addDays(rand(1, 365)),			
-            'estado'=>	rand(0,1) 		
+            'nombre'=> Str::random(10),
+            'precio'=> rand(100, 100000),
+            'lote'=>	Str::random(10),
+            'vencimiento'=>now()->addDays(rand(1, 365)),
+            'estado'=>	rand(0,1)
             
         ]);
     }
