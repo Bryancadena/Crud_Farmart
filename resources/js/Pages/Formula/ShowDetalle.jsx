@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Button, Tooltip, Space, Table, Tag} from "antd";
 import axios from "axios";
 
 const endPoint = "http://localhost:8000/api";
 
-export default function  ({id}) {
+export default function ShowDetalle  ({id}) {
     const [detalle, setDetalle] = useState([]);
     useEffect(() => {
         getDetalle(id);

@@ -9,7 +9,15 @@ class DetalleFormulaController extends Controller
 {
     public function show(Request $request)
     {
-        $detalle= DetalleFormula::all()->where('fk_id_formula',$request->id);
+        $detalle= DetalleFormula::select('factulineas.id',
+                                        'factulineas.fk_id_formula',
+                                        'productos.nombre',
+                                        'factulineas.cantidad',
+                                        'factulineas.valor'
+                                        )
+                                  ->join('productos','productos.id_productos','factulineas.fk_id_producto')
+                                  ->where('fk_id_formula',$request->id)
+                                  ->get();
         return $detalle;
     }
 
