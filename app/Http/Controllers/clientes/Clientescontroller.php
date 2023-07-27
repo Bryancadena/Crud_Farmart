@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\clientes;
 
 use App\Http\Controllers\Controller;
+use App\Models\Clientes;
 use Illuminate\Http\Request;
 
 class Clientescontroller extends Controller
@@ -10,26 +11,7 @@ class Clientescontroller extends Controller
    
     public function index()
     {
-        
+         return Clientes::all();
     }
 
-    public function store(Request $request)
-    {
-        
-    }
-
-    public function show(string $id)
-    {
-        
-    }
-
-    public function update(Request $request, string $id)
-    {
-        
-    }
-
-    public function destroy(string $id)
-    {
-        
-    }
 }

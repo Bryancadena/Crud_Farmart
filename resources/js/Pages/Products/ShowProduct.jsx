@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "@inertiajs/react";
-import * as Icon from 'react-bootstrap-icons';
-import "../../../css/material-dashboard.min.css";
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Table} from 'antd';
+import { Head } from '@inertiajs/react';
+
 
 const endPoint = "http://localhost:8000/api";
 
-export default function ShowProducto() {
+export default function ShowProducto({auth}) {
     const [product, setProducts] = useState([]);
     useEffect(() => {
         getAllProductos();
@@ -18,61 +19,74 @@ export default function ShowProducto() {
         setProducts(response.data);
     };
 
-    const deleteProducto = async (id) => {
-        await axios.delete(`${endPoint}/producto/${id}`);
-        getAllFacturas();
-    };
+    const columns = [
+        {
+            title: "Producto",
+            dataIndex: "nombre",
+            key: "nombre",
+            render: (text) => <a>{text}</a>,
+        },
+        {
+            title: "Precio",
+            dataIndex: "precio",
+            key: "precio",
+        },
+        {
+            title: "Lote",
+            dataIndex: "lote",
+            key: "lote",
+        },
+        {
+            title: "Vencimiento",
+            dataIndex: "vencimiento",
+            key: "vencimiento",
+        },
+        {
+            title: "Estado",
+            dataIndex: "estado",
+            key: "estado",
+        },
 
+    ];
+
+    const data = product.map((item, index) => ({
+        ...item,
+        item: index.id_productos,
+        item: index.nombre,
+        item: index.precio,
+        item: index.lote,
+        item: index.vencimiento,
+        item: index.estado,
+    }));
+    const Style = {
+        width: "fit-content",
+        placeSelf:"flex-end",
+        backgroundColor: "#1677ff",
+    };
     return (
-        <div className="table-responsive">
-            <div className="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
-                <Link
-                    to="/create"
-                    // className="btn btn-success btn-lg mt-2 mb-2 text-white"
-                ><button className="btn btn-success"> Crear</button>
-                   
-                </Link>
+        <AuthenticatedLayout
+            user={auth.user}
+            header={
+                <h6 className="font-semibold text-xl text-gray-800 leading-tight">
+                    Productos
+                </h6>
+            }
+        >
+            <Head title="Productos"/>
+
+            <div className="row">
+                <div className="col-12">
+                    <div className="card">
+                        <div className="card-body px-0 pb-2">
+                            <Table
+                                columns={columns}
+                                dataSource={data}
+                                rowKey="id"
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="dataTable-container">
-                <table className="table text-center">
-                    <thead className="table-dark text-center">
-                        <tr>
-                            <th>NOMBRE</th>
-                            <th>PRECIO</th>
-                            <th>LOTE</th>
-                            <th>VENCIMIENTO</th>
-                            <th>ESTADO</th>
-                            <th>ACCION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {product.map((producto) => (
-                            <tr key={producto.id_productos}>
-                                <td>{producto.nombre}</td>
-                                <td>{producto.precio}</td>
-                                <td>{producto.lote}</td>
-                                <td>{producto.vencimiento}</td>
-                                <td>{producto.estado}</td>
-                                <td className="d-flex justify-content-center">
-                                    <Link
-                                    ><Icon.Eye/>
-                                    </Link>
-                                    <Link
-                                        to={`/edit/${producto.id}`}
-                                    ><Icon.PencilSquare/>
-                                    </Link>
-                                    <Link onClick={() =>
-                                        deleteProducto(producto.id)
-                                    }
-                                    ><Icon.Trash />
-                                    </Link>
-                                        
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        </AuthenticatedLayout>
     );
 }

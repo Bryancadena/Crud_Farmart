@@ -20,7 +20,6 @@ export default function Dashboard({ auth }) {
                 <div className="col-12">
                     <div className="card">
                    <div className='card-body px-0 pb-2'>
-                        <ShowProduct />
                         </div>
                     </div>
                 </div>

@@ -60,7 +60,7 @@ export default function Sidebar({ user }) {
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link text-white " href="#">
+                        <a className="nav-link text-white " href={route('clientes')}>
                             <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <Icon.PersonSquare/>
                             </div>
@@ -68,7 +68,7 @@ export default function Sidebar({ user }) {
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link text-white " href="#">
+                        <a className="nav-link text-white " href={route('productos')}>
                             <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <Icon.BoxSeam/>
                             </div>
@@ -76,12 +76,12 @@ export default function Sidebar({ user }) {
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link text-white " href="#">
+                        <a className="nav-link text-white " href={route('usuarios')}>
                             <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <Icon.CardList/>
+                            <Icon.People/>
                             </div>
                             <span className="nav-link-text ms-1">
-                                Notifications
+                                Usuarios
                             </span>
                         </a>
                     </li>

@@ -29,9 +29,7 @@ Route::get('/', function () {
 Route::redirect('/', 'login'); // Redireccionar directamente desde '/' a '/login'
 Route::get('login', function () {
     return Inertia::render('Login');
-})->name('login'); 
-
-
+})->name('login');
 
 
 Route::get('/dashboard', function () {
@@ -42,6 +40,19 @@ Route::get('/dashboard', function () {
 Route::get('/facturacion', function () {
     return Inertia::render('Formula/ShowFormula');
 })->middleware(['auth', 'verified'])->name('Facturacion');
+
+Route::get('/productos', function () {
+    return Inertia::render('Products/ShowProduct');
+})->middleware(['auth', 'verified'])->name('productos');
+
+Route::get('/clientes', function () {
+    return Inertia::render('Clientes/ShowClientes');
+})->middleware(['auth', 'verified'])->name('clientes');
+
+Route::get('/usuarios', function () {
+    return Inertia::render('Users/ShowUsers');
+})->middleware(['auth', 'verified'])->name('usuarios');
+
 
 
 Route::middleware('auth')->group(function () {
