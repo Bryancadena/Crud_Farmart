@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('formulas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('fk_cliente');
-            $table->foreign('fk_cliente')->references('id_clientes')->on('clientes');
+            $table->foreign('fk_cliente')->references('identificacion')->on('clientes');
             $table->unsignedBigInteger('fk_tipo_facturacion');
             $table->foreign('fk_tipo_facturacion')->references('id')->on('tipo_facturacions');
             $table->string('observacion');

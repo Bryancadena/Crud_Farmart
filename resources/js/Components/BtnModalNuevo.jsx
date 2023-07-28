@@ -4,15 +4,17 @@ import * as Icon from '@ant-design/icons';
 import FormNew from '@/Components/FormNueva'
 
 
+
 const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
   const [form] = Form.useForm();
   return (
     <Modal
       open={open}
       title="Crear Nueva Formula"
-      okText="Create"
+      // okText="Create"
       // cancelText="Cancel"
-      // onCancel={onCancel}
+      footer={null}
+      onCancel={onCancel}
       // onOk={() => {
       //   form
       //     .validateFields()
@@ -53,7 +55,8 @@ const App = () => {
       </Button>
       <CollectionCreateForm
         open={open}
-        onCreate={onCreate}
+        footer={null}
+        //  onCreate={onCreate}
         onCancel={() => {
           setOpen(false);
         }}

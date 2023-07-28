@@ -2,21 +2,21 @@ import React,{useState } from 'react';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Space,Select } from 'antd';
 
-const endPoint = "http://localhost:8000/api";
 
 
-const onFinish = (values) => {
-  console.log('Received values of form:', values);
-};
+
+// const onFinish = (values) => {
+//   console.log('Received values of form:', values);
+// };
 const App = () => (
-  <Form
-    name="dynamic_form_nest_item"
-    onFinish={onFinish}
-    style={{
-      maxWidth: 600,
-    }}
-    autoComplete="off"
-  >
+  // <Form.Item
+  //   name="dynamic_form_nest_item"
+  //   onFinish={onFinish}
+  //   style={{
+  //     maxWidth: 600,
+  //   }}
+  //   autoComplete="off"
+  // >
     <Form.List name="users">
       {(fields, { add, remove }) => (
         <>
@@ -100,11 +100,6 @@ const App = () => (
         </>
       )}
     </Form.List>
-    <Form.Item>
-      <Button type="primary" htmlType="submit">
-        Submit
-      </Button>
-    </Form.Item>
-  </Form>
+  // </Form.Item>
 );
 export default App;

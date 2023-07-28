@@ -24,7 +24,29 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            //
+
+            error_log($e->getMessage());
+
+        });
+
+ 
+
+        $this->renderable(function (Throwable $e, $request) {
+
+            // if (!property_exists($e, 'status') && (strpos($e->getMessage(), 'Unauthenticated') !== false ||
+
+            //         strpos($e->getMessage(), 'User does not have the right roles') !== false ||
+
+            //         strpos($e->getMessage(), 'SQLSTATE') !== false ||
+
+            //         strpos($e->getMessage(), 'Illegal offset type') === false)) {
+
+            //     return redirect()->route('redirectohome');
+
+            // }
+
+            error_log($e->getMessage());
+
         });
     }
 }
