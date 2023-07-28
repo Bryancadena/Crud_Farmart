@@ -67,6 +67,13 @@ class FormulaController extends Controller
 
     public function destroy($id)
     {
-        return Formula::destroy($id);
+           $destroy=DetalleFormula::select('id')->where('fk_id_formula',$id)->get();
+           $ids = [];
+           foreach ($destroy as $resultado) {
+            $ids[] = $resultado->id;
+             }
+           DetalleFormula::destroy($ids);
+           Formula::destroy($id);
+          
     }
 }
