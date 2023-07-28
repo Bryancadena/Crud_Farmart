@@ -24,8 +24,8 @@ export default function ShowDetalle  ({id}) {
         },
         {
             title: "Producto",
-            dataIndex: "fk_id_producto",
-            key: "fk_id_producto",
+            dataIndex: "nombre",
+            key: "nombre",
         },
         {
             title: "Cantidad",

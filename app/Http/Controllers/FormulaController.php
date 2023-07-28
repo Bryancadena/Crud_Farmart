@@ -23,7 +23,7 @@ class FormulaController extends Controller
                                             'formulas.observacion',
                                             'users.name'
                                             )
-                                            ->join('clientes','clientes.id_clientes','formulas.fk_cliente')
+                                            ->join('clientes','clientes.identificacion','formulas.fk_cliente')
                                             ->join('tipo_facturacions as tf','tf.id','formulas.fk_tipo_facturacion')
                                             ->join('users','users.id','formulas.id_usuario')
                                             ->get();

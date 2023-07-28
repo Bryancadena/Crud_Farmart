@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Clientes extends Model
 {
     use HasFactory;
-
+    protected $table='clientes';
+    
     public function listarClientes()
     {
         return Clientes::all();

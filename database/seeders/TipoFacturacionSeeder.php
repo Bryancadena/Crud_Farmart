@@ -2,15 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\formula;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+Use App\Models\tipoFacturacion;
 
-class FormulasSeeder extends Seeder
+class TipoFacturacionSeeder extends Seeder
 {
-
+    /**
+     * Run the database seeds.
+     */
     public function run(): void
     {
-        formula::factory(10)->create();
+        tipoFacturacion::factory(2)->create();
     }
 }

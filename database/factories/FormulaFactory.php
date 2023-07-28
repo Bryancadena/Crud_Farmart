@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class FormulasFactory extends Factory
+class FormulaFactory extends Factory
 {
 
     protected $model=formula::class;
@@ -24,10 +24,11 @@ class FormulasFactory extends Factory
     public function definition(): array
     {
         return [
-            'fk_cliente'=> Clientes::inRamdomOrder()->first()->id_clientes,
-            'fk_tipo_facturacion'=>tipoFacturacion::inRamdomOrder()->first()->id,
+
+            'fk_cliente'=> Clientes::inRandomOrder()->first()->identificacion,
+            'fk_tipo_facturacion'=>tipoFacturacion::inRandomOrder()->first()->id,
             'observacion'=>$this->faker->paragraph(),
-            'id_usuario' =>User::inRandomOrder()->id,
+            'id_usuario' =>User::inRandomOrder()->first()->id,
         ];
     }
 }

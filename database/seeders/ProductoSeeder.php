@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\Producto;
 
 class ProductoSeeder extends Seeder
 {
@@ -14,14 +15,16 @@ class ProductoSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('productos')->insert([
+
+        Producto::factory(10)->create();
+        // DB::table('productos')->insert([
            
-            'nombre'=> Str::random(10),
-            'precio'=> rand(100, 100000),
-            'lote'=>	Str::random(10),
-            'vencimiento'=>now()->addDays(rand(1, 365)),
-            'estado'=>	rand(0,1)
+        //     'nombre'=> Str::random(10),
+        //     'precio'=> rand(100, 100000),
+        //     'lote'=>	Str::random(10),
+        //     'vencimiento'=>now()->addDays(rand(1, 365)),
+        //     'estado'=>	rand(0,1)
             
-        ]);
+        // ]);
     }
 }
