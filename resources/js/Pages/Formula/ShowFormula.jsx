@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import BtnModalNuevo from "@/Components/BtnModalNuevo";
+import BtnEdit from "@/Components/BtnEditarFormula"
 import * as Icon from "@ant-design/icons";
 import BtnModalDetalle from "@/Components/BtnModalDetalle";
 import { Button, Tooltip, Space, Table, Tag,Popconfirm } from "antd";
@@ -70,12 +71,10 @@ export default function ShowFormula({ auth }) {
                         />
                     </a>
                     <a>
-                        <Tooltip title="Editar">
-                            <Button
+                            <BtnEdit
                                 shape="circle"
                                 icon={<Icon.EditOutlined />}
                             />
-                        </Tooltip>
                     </a>
                     <a>
                         <Tooltip title="Eliminar">
@@ -122,7 +121,7 @@ export default function ShowFormula({ auth }) {
             <div className="row">
                 <div className="col-12">
                     <div className="card">
-                        <BtnModalNuevo icon={<Icon.PlusOutlined />}/>
+                        <BtnModalNuevo icon={<Icon.PlusOutlined />} auth={auth}/>
                         <div className="card-body px-0 pb-2">
                             <Table
                                 columns={columns}

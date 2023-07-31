@@ -56,12 +56,14 @@ class FormulaController extends Controller
 
     public function show($id)
     {
+
     return 1;
     }
 
 
     public function edit(Request $request)
     {
+        
         return 1;
     }
 

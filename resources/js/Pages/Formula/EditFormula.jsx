@@ -1,56 +1,65 @@
-import React, { useState, useEffect,useContext } from "react";
-import {Button,Form,Input,InputNumber,Select,DatePicker,Space} from "antd";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import axios from "axios";
+import axios from "axios"
+import React,{useState,useEffect} from "react"
+import { Button, Form, Input, Modal, Radio,Tooltip,Table } from 'antd';
 
 const endPoint = "http://localhost:8000/api";
-const layout = {
-    labelCol: {
-        span: 8,
-    },
-    wrapperCol: {
-        span: 16,
-    },
-};
 
-const validateMessages = {
-    required: "${label} is required!",
-    types: {
-        email: "${label} is not a valid email!",
-        number: "${label} is not a valid number!",
-    },
-    number: {
-        range: "${label} must be between ${min} and ${max}",
-    },
-};
+export default function EditFormula({ auth }) {
+    const [formula, setFormula] = useState([]);
+    useEffect(() => {
+        getEditFormula();
+    }, []);
 
+    const getEditFormula = async () => {
+        const response = await axios.get(`${endPoint}/formulas/{id}`);
 
-const onFinish = async (values) => {
-    console.log(values);
-          
-        const response = await axios.post(`${endPoint}/formulas`,values).then(function (response1) {
-            console.log(response1);
+        setFormula(response.data);
+    };
 
-        if (response1.ok) {
-          console.log('Datos del formulario enviados al servidor con éxito.');
-        } else {
-          console.error('Error al enviar los datos del formulario al servidor.');
-        }
-    });
-}
+    console.log(formula);
 
+    const data = formula.map((item, index) => ({
+        ...item,
+        item: index.id,
+        item: index.fk_cliente,
+        item: index.fk_tipo_facturacion,
+        item: index.observacion,
+        item: index.id_usuario,
+    }));
+    
 
-const App = ({auth}) => {
-
-    return(
-    <Form  
+    const onFinish = async (values) => {
+        console.log(values);
+              
+            const response = await axios.put(`${endPoint}/formulas/${id}`,values).then(function (response1) {
+                console.log(response1);
+    
+            if (response1.ok) {
+              console.log('Datos del formulario enviados al servidor con éxito.');
+            } else {
+              console.error('Error al enviar los datos del formulario al servidor.');
+            }
+        });
+    }
+    
+    const layout = {
+        labelCol: {
+          span: 8,
+        },
+        wrapperCol: {
+          span: 16,
+        },
+      };
+    return (
+        <Form 
         {...layout}
-        name="nest-messages"
+        // name="nest-messages"
         onFinish={onFinish}
         style={{
             maxWidth: 600,
         }}
-        validateMessages={validateMessages} auth={auth}
+        // validateMessages={validateMessages} 
+        auth={auth}
     >
         <Form.Item
             name={["user", "identificacion"]}
@@ -90,7 +99,7 @@ const App = ({auth}) => {
             <Input.TextArea />
         </Form.Item>
         <Form.Item name={["user", "usuario"]} label="Usuario">
-            <Input type="text" defaultValue={[auth.user.name]} disabled/>
+            <Input type="text" value={auth.user.user} disabled/>
         </Form.Item>
         <Form.Item name={["user", "productos"]} label="Productos">
             <Form.List name="productos">
@@ -201,5 +210,7 @@ const App = ({auth}) => {
         </Form.Item>
     </Form>
     )
-        };
-export default App;
+
+}
+
+// export default EditFormula;

@@ -1,37 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState,createContext } from 'react';
 import { Button, Form, Input, Modal, Radio,InputNumber  } from 'antd';
 import * as Icon from '@ant-design/icons';
 import FormNew from '@/Components/FormNueva'
 
 
-
-const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
+const CollectionCreateForm = ({ open, onCreate, onCancel,auth}) => {
   const [form] = Form.useForm();
   return (
     <Modal
-      open={open}
+      open={open} 
       title="Crear Nueva Formula"
-      // okText="Create"
-      // cancelText="Cancel"
       footer={null}
       onCancel={onCancel}
-      // onOk={() => {
-      //   form
-      //     .validateFields()
-      //     .then((values) => {
-      //       form.resetFields();
-      //       onCreate(values);
-      //     })
-      //     .catch((info) => {
-      //       console.log('Validate Failed:', info);
-      //     });
-      // }}
     >
-      <FormNew />
+      <FormNew auth={auth}/>
     </Modal>
   );
 };
-const App = () => {
+const App = ({auth}) => {
+console.log(auth);
   const [open, setOpen] = useState(false);
   const onCreate = (values) => {
     console.log('Received values of form: ', values);
@@ -45,7 +32,7 @@ const App = () => {
 };
   return (
     <div>
-      <Button style={Style}
+      <Button style={Style}  auth={auth}
         type="primary" icon={<Icon.PlusOutlined />}
         onClick={() => {
           setOpen(true);
@@ -54,7 +41,7 @@ const App = () => {
         Nueva Factura
       </Button>
       <CollectionCreateForm
-        open={open}
+        open={open} auth={auth}
         footer={null}
         //  onCreate={onCreate}
         onCancel={() => {

@@ -14,16 +14,6 @@ const layout = {
     },
 };
 
-const validateMessages = {
-    required: "${label} is required!",
-    types: {
-        email: "${label} is not a valid email!",
-        number: "${label} is not a valid number!",
-    },
-    number: {
-        range: "${label} must be between ${min} and ${max}",
-    },
-};
 
 const onFinish = async (values) => {
     console.log(values);
@@ -43,12 +33,12 @@ const onFinish = async (values) => {
 const App = () => (
     <Form 
         {...layout}
-        name="nest-messages"
+        // name="nest-messages"
         onFinish={onFinish}
         style={{
             maxWidth: 600,
         }}
-        validateMessages={validateMessages}
+        // validateMessages={validateMessages}
     >
         <Form.Item
             name={["user", "identificacion"]}
