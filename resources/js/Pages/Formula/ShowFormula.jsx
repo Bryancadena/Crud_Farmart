@@ -71,7 +71,7 @@ export default function ShowFormula({ auth }) {
                         />
                     </a>
                     <a>
-                            <BtnEdit
+                            <BtnEdit id={record.id}
                                 shape="circle"
                                 icon={<Icon.EditOutlined />}
                             />

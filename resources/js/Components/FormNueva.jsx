@@ -90,7 +90,7 @@ const App = ({auth}) => {
             <Input.TextArea />
         </Form.Item>
         <Form.Item name={["user", "usuario"]} label="Usuario">
-            <Input type="text" defaultValue={[auth.user.name]} disabled/>
+            <Input type="text" defaultValue={[auth.user.id]+ " - " + [auth.user.name]} disabled/>
         </Form.Item>
         <Form.Item name={["user", "productos"]} label="Productos">
             <Form.List name="productos">
@@ -195,8 +195,8 @@ const App = ({auth}) => {
                 offset: 8,
             }}
         >
-            <Button type="primary" htmlType="submit">
-                Submit
+            <Button type="primary" htmlType="submit" style={{backgroundColor:"#1677ff"}}>
+                Enviar
             </Button>
         </Form.Item>
     </Form>

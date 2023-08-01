@@ -18,7 +18,6 @@ const CollectionCreateForm = ({ open, onCreate, onCancel,auth}) => {
   );
 };
 const App = ({auth}) => {
-console.log(auth);
   const [open, setOpen] = useState(false);
   const onCreate = (values) => {
     console.log('Received values of form: ', values);

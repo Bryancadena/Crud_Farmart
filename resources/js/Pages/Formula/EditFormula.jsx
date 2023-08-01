@@ -1,32 +1,35 @@
 import axios from "axios"
 import React,{useState,useEffect} from "react"
-import { Button, Form, Input, Modal, Radio,Tooltip,Table } from 'antd';
+import { Button, Form, Input,DatePicker,Select,Space } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 const endPoint = "http://localhost:8000/api";
 
-export default function EditFormula({ auth }) {
+export default function EditFormula({ id }) {
     const [formula, setFormula] = useState([]);
     useEffect(() => {
-        getEditFormula();
+        getEditFormula(id);
     }, []);
 
-    const getEditFormula = async () => {
-        const response = await axios.get(`${endPoint}/formulas/{id}`);
-
+    const getEditFormula = async (id) => {
+        const response = await axios.get(`${endPoint}/formula/${id}`);
         setFormula(response.data);
     };
 
-    console.log(formula);
+    // const data = formula.map((item, index) => ({
+    //     ...item,
+    //     item: index.id,
+    //     item: index.identificacion,
+    //     item: index.nombres + ' ' + index.apellidos, 
+    //     item: index.eps_cliente,
+    //     item: index.created_at,
+    //     item: index.fk_tipo_facturacion,
+    //     item: index.observacion,
+    //     item: index.name,
 
-    const data = formula.map((item, index) => ({
-        ...item,
-        item: index.id,
-        item: index.fk_cliente,
-        item: index.fk_tipo_facturacion,
-        item: index.observacion,
-        item: index.id_usuario,
-    }));
-    
+        
+    // }));
+    console.log(formula);
 
     const onFinish = async (values) => {
         console.log(values);
@@ -41,6 +44,13 @@ export default function EditFormula({ auth }) {
             }
         });
     }
+
+    // const handleChange=e=>{
+    //     const {name, value}=e.target;
+    //     setFormula({...formula,
+    //     [name]: value});
+    //     console.log(formula);
+    //   }
     
     const layout = {
         labelCol: {
@@ -50,6 +60,8 @@ export default function EditFormula({ auth }) {
           span: 16,
         },
       };
+
+
     return (
         <Form 
         {...layout}
@@ -57,9 +69,9 @@ export default function EditFormula({ auth }) {
         onFinish={onFinish}
         style={{
             maxWidth: 600,
-        }}
+        }} 
         // validateMessages={validateMessages} 
-        auth={auth}
+        // auth={auth}
     >
         <Form.Item
             name={["user", "identificacion"]}
@@ -70,13 +82,13 @@ export default function EditFormula({ auth }) {
                 },
             ]}
         >
-            <Input type="number" />
+            <Input type="number"  value={formula && formula.identificacion} />
         </Form.Item>
         <Form.Item name={["user", "name"]} label="Nombre Cliente">
-            <Input />
+            <Input  initialValues={[formula.nombres]}/>
         </Form.Item>
         <Form.Item name={["user", "Eps"]} label="Eps">
-            <Input />
+            <Input  initialvalue="valor inicial"/>
         </Form.Item>
         <Form.Item name={["user", "fecha"]} label="Fecha Actual">
             <DatePicker />
@@ -99,7 +111,7 @@ export default function EditFormula({ auth }) {
             <Input.TextArea />
         </Form.Item>
         <Form.Item name={["user", "usuario"]} label="Usuario">
-            <Input type="text" value={auth.user.user} disabled/>
+            <Input type="text" disabled/>
         </Form.Item>
         <Form.Item name={["user", "productos"]} label="Productos">
             <Form.List name="productos">
@@ -205,12 +217,10 @@ export default function EditFormula({ auth }) {
             }}
         >
             <Button type="primary" htmlType="submit">
-                Submit
+                Enviar
             </Button>
         </Form.Item>
     </Form>
     )
 
 }
-
-// export default EditFormula;

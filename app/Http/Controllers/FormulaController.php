@@ -57,7 +57,24 @@ class FormulaController extends Controller
     public function show($id)
     {
 
-    return 1;
+        $formulaConDetalle = formula::select('formulas.id',
+                                            'clientes.identificacion',
+                                            'clientes.nombres',
+                                            'clientes.apellidos',
+                                            'clientes.eps_cliente',
+                                            'formulas.created_at',
+                                            'formulas.fk_tipo_facturacion',
+                                            'tf.descripcion',
+                                            'formulas.observacion',
+                                            'users.name'
+                                            )
+        ->join('clientes','clientes.identificacion','formulas.fk_cliente')
+        ->join('tipo_facturacions as tf','tf.id','formulas.fk_tipo_facturacion')
+        ->join('users','users.id','formulas.id_usuario')
+        ->where('formulas.id',$id)
+        ->get();
+        
+            return $formulaConDetalle;
     }
 
 

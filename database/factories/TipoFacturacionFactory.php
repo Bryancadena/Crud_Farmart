@@ -19,7 +19,7 @@ class TipoFacturacionFactory extends Factory
     public function definition(): array
     {
         return [
-            'descripcion' =>$this->faker->randomElement(['EVENTO', 'CAPITACION)']),
+            'descripcion' =>$this->faker->randomElement(['EVENTO', 'CAPITACION']),
             'updated_at' => Carbon::now(),
         ];
     }

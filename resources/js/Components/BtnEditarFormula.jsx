@@ -8,8 +8,8 @@ const CollectionCreateForm = ({ open, onCreate, onCancel,id }) => {
     <Modal
       open={open}
       title="Editar Formula"
+      footer={null}
     //   okText="Create"
-      cancelText="Cancel"
       onCancel={onCancel}
  
     >
@@ -17,7 +17,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel,id }) => {
     </Modal>
   );
 };
-const App = (id) => {
+const App = ({id}) => {
 
   const [open, setOpen] = useState(false);
   const onCreate = (values) => {
@@ -26,14 +26,14 @@ const App = (id) => {
   };
   return (
     <div><Tooltip title="Editar">
-      <Button shape="circle" icon={<Icon.EditOutlined/>}
+      <Button shape="circle" icon={<Icon.EditOutlined/> }  id={id}
         onClick={() => {
           setOpen(true);
         }}/>
         </Tooltip>
       <CollectionCreateForm
-        id={id.id}
-        open={open}
+        open={open} id={id}
+        footer={null}
         // onCreate={onCreate}
         onCancel={() => {
           setOpen(false);
