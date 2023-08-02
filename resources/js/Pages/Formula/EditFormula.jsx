@@ -40,15 +40,16 @@ export default function EditFormula({ id }) {
     const onFinish = async (values) => {
         console.log(values);
               
-        //     const response = await axios.put(`${endPoint}/formulas/${id}`,values).then(function (response1) {
-        //         console.log(response1);
+            const response = await axios.put(`${endPoint}/formula/${id}`,values).then(function (response1) {
+                console.log(response1);
     
-        //     if (response1.ok) {
-        //       console.log('Datos del formulario enviados al servidor con éxito.');
-        //     } else {
-        //       console.error('Error al enviar los datos del formulario al servidor.');
-        //     }
-        // });
+            if (response1.ok) {
+              console.log('Datos del formulario enviados al servidor con éxito.');
+            } else {
+              console.error('Error al enviar los datos del formulario al servidor.');
+            }
+        });
+        
     }
     
     const layout = {
@@ -114,7 +115,7 @@ export default function EditFormula({ id }) {
         <Form.Item name={keys[9]} label="Usuario" initialValue={formula.name}>
             <Input type="text" disabled/>
         </Form.Item>
-        <Form.Item name={["user", "productos"]} label="Productos">
+        {/* <Form.Item name={["user", "productos"]} label="Productos">
             <Form.List name="productos">
                 {(fields, { add, remove }) => (
                     <>
@@ -144,7 +145,9 @@ export default function EditFormula({ id }) {
                                         },
                                     ]}
                                 >
+                                    <Tooltip title="cantidad">
                                     <Input placeholder="Cantidad" />
+                                    </Tooltip>
                                 </Form.Item>
                                 <Form.Item
                                     {...restField}
@@ -156,7 +159,9 @@ export default function EditFormula({ id }) {
                                         },
                                     ]}
                                 >
+                                    <Tooltip title="Lote">
                                     <Input placeholder="Lote" />
+                                    </Tooltip>
                                 </Form.Item>
                                 <Form.Item
                                     {...restField}
@@ -168,7 +173,9 @@ export default function EditFormula({ id }) {
                                         },
                                     ]}
                                 >
+                                    <Tooltip title="vencimiento">
                                     <Input placeholder="vencimiento" />
+                                    </Tooltip>
                                 </Form.Item>
                                 <Form.Item
                                     {...restField}
@@ -180,7 +187,9 @@ export default function EditFormula({ id }) {
                                         },
                                     ]}
                                 >
+                                    <Tooltip title="precio">
                                     <Input placeholder="Precio" />
+                                    </Tooltip>
                                 </Form.Item>
                                 <MinusCircleOutlined
                                     onClick={() => remove(name)}
@@ -200,7 +209,7 @@ export default function EditFormula({ id }) {
                     </>
                 )}
             </Form.List>
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
             wrapperCol={{
                 ...layout.wrapperCol,

@@ -68,11 +68,13 @@ class FormulaController extends Controller
                                             'formulas.fk_tipo_facturacion',
                                             'tf.descripcion',
                                             'formulas.observacion',
-                                            'users.name'
+                                            'users.name',
+                                            
                                             )
         ->join('clientes','clientes.identificacion','formulas.fk_cliente')
         ->join('tipo_facturacions as tf','tf.id','formulas.fk_tipo_facturacion')
         ->join('users','users.id','formulas.id_usuario')
+        ->join('factulineas','factulineas.fk_id_producto','formulas.id')
         ->where('formulas.id',$id)
         ->get()->toArray();
         
@@ -81,10 +83,14 @@ class FormulaController extends Controller
     }
 
 
-    public function edit(Request $request)
+    public function update(Request $request)
     {
-        dd($request);
-        return 1;
+        $form=formula::find($request->id);
+        $form->fk_cliente=$request->identificacion;
+        $form->fk_tipo_facturacion=$request->fk_tipo_facturacion;
+        $form->observacion=$request->observacion;
+        return $form->save();
+     
     }
 
     public function destroy($id)
