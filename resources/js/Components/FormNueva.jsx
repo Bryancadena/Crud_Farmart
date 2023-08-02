@@ -2,6 +2,7 @@ import React, { useState, useEffect,useContext } from "react";
 import {Button,Form,Input,InputNumber,Select,DatePicker,Space} from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import axios from "axios";
+import SelecProducto from "@/Components/SelectProductos"
 
 const endPoint = "http://localhost:8000/api";
 const layout = {
@@ -25,22 +26,32 @@ const validateMessages = {
 };
 
 
-const onFinish = async (values) => {
-    console.log(values);
-          
-        const response = await axios.post(`${endPoint}/formulas`,values).then(function (response1) {
-            console.log(response1);
-
-        if (response1.ok) {
-          console.log('Datos del formulario enviados al servidor con éxito.');
-        } else {
-          console.error('Error al enviar los datos del formulario al servidor.');
-        }
-    });
-}
-
-
 const App = ({auth}) => {
+
+    const [productoSeleccionado, setProductoSeleccionado] = useState('');
+
+    const handleProductoSeleccionado = (value) => {
+      setProductoSeleccionado(value);
+    };
+
+    const onFinish = async (values) => {
+        
+        
+
+        values.productos[0].producto=productoSeleccionado;
+
+        console.log(values);
+              
+            const response = await axios.post(`${endPoint}/formulas`,values).then(function (response1) {
+                console.log(response1);
+    
+            if (response1.ok) {
+              console.log('Datos del formulario enviados al servidor con éxito.');
+            } else {
+              console.error('Error al enviar los datos del formulario al servidor.');
+            }
+        });
+    }
 
     return(
     <Form  
@@ -107,20 +118,9 @@ const App = ({auth}) => {
                             >
                                 <Form.Item
                                     {...restField}
-                                    name={[name, "producto"]}
+                                    name={[name, "producto"]} value={productoSeleccionado}
                                 >
-                                    <Select
-                                        placeholder="Producto"
-                                        //   onChange={onGenderChange}
-                                        allowClear
-                                    >
-                                        <Select.Option value="1">
-                                            EVENTO
-                                        </Select.Option>
-                                        <Select.Option value="2">
-                                            CAPITACION
-                                        </Select.Option>
-                                    </Select>
+                                <SelecProducto   onProductoSeleccionado={handleProductoSeleccionado} />
                                 </Form.Item>
                                 <Form.Item
                                     {...restField}

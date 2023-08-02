@@ -34,12 +34,14 @@ class FormulaController extends Controller
 
     public function store(Request $request)
     {
-       
+        $part=explode(" - ",$request['user']['usuario']);
+        $idUser=$part[0];
+
         $formula=new Formula;
         $formula->fk_cliente=$request['user']['identificacion'];
         $formula->fk_tipo_facturacion=$request['TipoFact'];
         $formula->observacion=$request['user']['observacion'];
-        $formula->id_usuario=$request['user']['usuario'];
+        $formula->id_usuario= $idUser;
         $formula->save();
         $idFormula= $formula->id;
 
@@ -72,15 +74,16 @@ class FormulaController extends Controller
         ->join('tipo_facturacions as tf','tf.id','formulas.fk_tipo_facturacion')
         ->join('users','users.id','formulas.id_usuario')
         ->where('formulas.id',$id)
-        ->get();
+        ->get()->toArray();
         
-            return $formulaConDetalle;
+
+           return response()->json($formulaConDetalle);
     }
 
 
     public function edit(Request $request)
     {
-        
+        dd($request);
         return 1;
     }
 

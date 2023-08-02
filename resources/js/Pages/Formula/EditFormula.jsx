@@ -2,6 +2,7 @@ import axios from "axios"
 import React,{useState,useEffect} from "react"
 import { Button, Form, Input,DatePicker,Select,Space } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import SelecProducto from "@/Components/SelectProductos"
 
 const endPoint = "http://localhost:8000/api";
 
@@ -27,8 +28,7 @@ export default function EditFormula({ id }) {
         try {
             const response = await axios.get(`${endPoint}/formula/${id}`);
             if (Array.isArray(response.data)) {
-        
-                setFormula(response.data);
+                setFormula(response.data[0]);
             } else {
                 console.error('La respuesta no contiene un arreglo válido.');
             }
@@ -40,15 +40,15 @@ export default function EditFormula({ id }) {
     const onFinish = async (values) => {
         console.log(values);
               
-            const response = await axios.put(`${endPoint}/formulas/${id}`,values).then(function (response1) {
-                console.log(response1);
+        //     const response = await axios.put(`${endPoint}/formulas/${id}`,values).then(function (response1) {
+        //         console.log(response1);
     
-            if (response1.ok) {
-              console.log('Datos del formulario enviados al servidor con éxito.');
-            } else {
-              console.error('Error al enviar los datos del formulario al servidor.');
-            }
-        });
+        //     if (response1.ok) {
+        //       console.log('Datos del formulario enviados al servidor con éxito.');
+        //     } else {
+        //       console.error('Error al enviar los datos del formulario al servidor.');
+        //     }
+        // });
     }
     
     const layout = {
@@ -59,16 +59,7 @@ export default function EditFormula({ id }) {
           span: 16,
         },
       };
-      console.log(formula);
-      const data = formula && formula.map((item, index) => ({
-        ...item,
-        item: index.id,
-        item: index.fk_cliente,
-        item: index.fk_tipo_facturacion,
-        item: index.observacion,
-        item: index.id_usuario,
-    }));
-
+     const keys= Object.keys(formula);
     return (
         <Form 
         {...layout}
@@ -78,37 +69,37 @@ export default function EditFormula({ id }) {
             maxWidth: 600,
         }} 
         // validateMessages={validateMessages} 
-        // auth={auth}
     >
         <Form.Item
-            name={["user", "identificacion"]}
+            name={keys[1]}
             label="Identificacion"
             rules={[
                 {
                     required: true,
                 },
             ]} 
-            initialValue={[formula.identificacion]}
-           
+            initialValue={formula.identificacion}
         >
-            <Input  value={formula.identificacion} onChange={handleChange}
+            <Input 
+            //  value={formula.identificacion}
+            onChange={handleChange}
           className="formula"/>
         </Form.Item>
-        <Form.Item name={["user", "nombres"]} label="Nombre Cliente" initialValue={formula.id}>
+        <Form.Item name={keys[2]} label="Nombre Cliente"  initialValue={formula.nombres}>
             <Input type="text"/>
         </Form.Item>
-        <Form.Item name={["user", "eps_cliente"]} label="Eps">
+        <Form.Item name={keys[4]} label="Eps" initialValue={formula.eps_cliente}>
             <Input type="text"/>
         </Form.Item>
-        <Form.Item name={["user", "created_at"]} label="Fecha Actual">
-            <DatePicker />
+        <Form.Item name={keys[5]} label="Fecha Actual" initialValue={formula.created_at}>
+        <Input type="text"/>
         </Form.Item>
         <Form.Item
-            name="fk_tipo_facturacion"
+            name={keys[6]}
             label="Tipo Facturacion"
             rules={[{ required: true }]} 
         >
-            <Select
+            <Select value={formula.fk_tipo_facturacion}
                 placeholder="Seleccione Tipo Facturacion"
                 //   onChange={onGenderChange}
                 allowClear
@@ -117,10 +108,10 @@ export default function EditFormula({ id }) {
                 <Select.Option value="2">CAPITACION</Select.Option>
             </Select>
         </Form.Item>
-        <Form.Item name={["user", "observacion"]} label="Observacion" >
+        <Form.Item name={keys[8]} label="Observacion" initialValue={formula.observacion} >
             <Input.TextArea />
         </Form.Item>
-        <Form.Item name={["user", "name"]} label="Usuario" >
+        <Form.Item name={keys[9]} label="Usuario" initialValue={formula.name}>
             <Input type="text" disabled/>
         </Form.Item>
         <Form.Item name={["user", "productos"]} label="Productos">
@@ -140,18 +131,8 @@ export default function EditFormula({ id }) {
                                     {...restField}
                                     name={[name, "producto"]}
                                 >
-                                    <Select
-                                        placeholder="Producto"
-                                        //   onChange={onGenderChange}
-                                        allowClear
-                                    >
-                                        <Select.Option value="1">
-                                            EVENTO
-                                        </Select.Option>
-                                        <Select.Option value="2">
-                                            CAPITACION
-                                        </Select.Option>
-                                    </Select>
+
+                                    <SelecProducto  placeholder="Producto"  allowClear/>
                                 </Form.Item>
                                 <Form.Item
                                     {...restField}
@@ -226,7 +207,7 @@ export default function EditFormula({ id }) {
                 offset: 8,
             }}
         >
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" style={{backgroundColor:"#1677ff"}}>
                 Enviar
             </Button>
         </Form.Item>
