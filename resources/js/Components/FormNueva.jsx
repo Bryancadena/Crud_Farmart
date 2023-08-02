@@ -89,8 +89,8 @@ const App = ({auth}) => {
         <Form.Item name={["user", "observacion"]} label="Observacion">
             <Input.TextArea />
         </Form.Item>
-        <Form.Item name={["user", "usuario"]} label="Usuario">
-            <Input type="text" defaultValue={[auth.user.id]+ " - " + [auth.user.name]} disabled/>
+        <Form.Item name={["user", "usuario"]} label="Usuario" initialValue={[auth.user.id]+ " - " + [auth.user.name]} >
+            <Input type="text"  disabled/>
         </Form.Item>
         <Form.Item name={["user", "productos"]} label="Productos">
             <Form.List name="productos">

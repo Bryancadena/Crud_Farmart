@@ -6,30 +6,36 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 const endPoint = "http://localhost:8000/api";
 
 export default function EditFormula({ id }) {
-    const [formula, setFormula] = useState([]);
+    const [formula, setFormula] = useState({});
+
+    const handleChange = (e) => {
+        // Actualizar el estado con los cambios del input
+        const { name, value } = e.target;
+        setFormula((prevFormula) => ({
+          ...prevFormula,
+          [name]: value,
+        }));
+      };
+
     useEffect(() => {
         getEditFormula(id);
     }, []);
 
     const getEditFormula = async (id) => {
-        const response = await axios.get(`${endPoint}/formula/${id}`);
-        setFormula(response.data);
-    };
-
-    // const data = formula.map((item, index) => ({
-    //     ...item,
-    //     item: index.id,
-    //     item: index.identificacion,
-    //     item: index.nombres + ' ' + index.apellidos, 
-    //     item: index.eps_cliente,
-    //     item: index.created_at,
-    //     item: index.fk_tipo_facturacion,
-    //     item: index.observacion,
-    //     item: index.name,
-
+        // const response = await axios.get(`${endPoint}/formula/${id}`);
+        // setFormula(response.data);
+        try {
+            const response = await axios.get(`${endPoint}/formula/${id}`);
+            if (Array.isArray(response.data)) {
         
-    // }));
-    console.log(formula);
+                setFormula(response.data);
+            } else {
+                console.error('La respuesta no contiene un arreglo válido.');
+            }
+        } catch (error) {
+            console.error('Error al obtener los datos de la fórmula:', error);
+        }
+    };
 
     const onFinish = async (values) => {
         console.log(values);
@@ -44,13 +50,6 @@ export default function EditFormula({ id }) {
             }
         });
     }
-
-    // const handleChange=e=>{
-    //     const {name, value}=e.target;
-    //     setFormula({...formula,
-    //     [name]: value});
-    //     console.log(formula);
-    //   }
     
     const layout = {
         labelCol: {
@@ -60,7 +59,15 @@ export default function EditFormula({ id }) {
           span: 16,
         },
       };
-
+      console.log(formula);
+      const data = formula && formula.map((item, index) => ({
+        ...item,
+        item: index.id,
+        item: index.fk_cliente,
+        item: index.fk_tipo_facturacion,
+        item: index.observacion,
+        item: index.id_usuario,
+    }));
 
     return (
         <Form 
@@ -80,23 +87,26 @@ export default function EditFormula({ id }) {
                 {
                     required: true,
                 },
-            ]}
+            ]} 
+            initialValue={[formula.identificacion]}
+           
         >
-            <Input type="number"  value={formula && formula.identificacion} />
+            <Input  value={formula.identificacion} onChange={handleChange}
+          className="formula"/>
         </Form.Item>
-        <Form.Item name={["user", "name"]} label="Nombre Cliente">
-            <Input  initialValues={[formula.nombres]}/>
+        <Form.Item name={["user", "nombres"]} label="Nombre Cliente" initialValue={formula.id}>
+            <Input type="text"/>
         </Form.Item>
-        <Form.Item name={["user", "Eps"]} label="Eps">
-            <Input  initialvalue="valor inicial"/>
+        <Form.Item name={["user", "eps_cliente"]} label="Eps">
+            <Input type="text"/>
         </Form.Item>
-        <Form.Item name={["user", "fecha"]} label="Fecha Actual">
+        <Form.Item name={["user", "created_at"]} label="Fecha Actual">
             <DatePicker />
         </Form.Item>
         <Form.Item
-            name="TipoFact"
+            name="fk_tipo_facturacion"
             label="Tipo Facturacion"
-            rules={[{ required: true }]}
+            rules={[{ required: true }]} 
         >
             <Select
                 placeholder="Seleccione Tipo Facturacion"
@@ -107,10 +117,10 @@ export default function EditFormula({ id }) {
                 <Select.Option value="2">CAPITACION</Select.Option>
             </Select>
         </Form.Item>
-        <Form.Item name={["user", "observacion"]} label="Observacion">
+        <Form.Item name={["user", "observacion"]} label="Observacion" >
             <Input.TextArea />
         </Form.Item>
-        <Form.Item name={["user", "usuario"]} label="Usuario">
+        <Form.Item name={["user", "name"]} label="Usuario" >
             <Input type="text" disabled/>
         </Form.Item>
         <Form.Item name={["user", "productos"]} label="Productos">
